@@ -24,14 +24,14 @@ if game.GameId == 113491250 and not getgenv().DeleteMob.Executed then
             run_on_actor(Actor, [[
                 for _, Shared in getgc(true) do
                     if typeof(Shared) == "table" and rawget(Shared, "require") and not rawget(Shared, "rawget") then ]] ..
-                        game:HpptGet("https://raw.githubusercontent.com/Mick-gordon/DeleteMob-V3/refs/heads/main/Phantom%20Forces.lua") .. [[
+                        game:HttpGet("https://raw.githubusercontent.com/Mick-gordon/DeleteMob-V3/refs/heads/main/Phantom%20Forces.lua") .. [[
                     end;
                 end;
             ]]);
         end;
 
     elseif setfflag and queue_on_teleport then
-        queue_on_teleport(PhantomFocresFllag .. game:HpptGet("https://raw.githubusercontent.com/Mick-gordon/DeleteMob-V3/refs/heads/main/Phantom%20Forces.lua")); -- Remember To Change The FFlag To False.
+        queue_on_teleport(PhantomFocresFllag .. game:HttpGet("https://raw.githubusercontent.com/Mick-gordon/DeleteMob-V3/refs/heads/main/Phantom%20Forces.lua")); -- Remember To Change The FFlag To False.
         
         xpcall(function()
             setfflag("DebugRunParallelLuaOnMainThread", "True"); 
