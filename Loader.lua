@@ -1,6 +1,8 @@
 getgenv().DeleteMob = { 
     Executed = false,
     ChangedFFLag = false,
+    Drawings = { },
+    Instances = { }
 };
 
 repeat task.wait() until game:IsLoaded();
