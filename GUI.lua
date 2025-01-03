@@ -291,12 +291,12 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 
 		ColorPicker.Saturation.MouseButton1Down:Connect(function()
 			ColorPicker.SlidingSaturation = true;
-			ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()});
+			ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38)});
 		end);
 
 		ColorPicker.Saturation.InputChanged:Connect(function()
 			if ColorPicker.SlidingSaturation then
-				ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()});
+				ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38)});
 			end;
 		end);
 
@@ -319,12 +319,12 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 
 		ColorPicker.Hue.MouseButton1Down:Connect(function()
 			ColorPicker.SlidingHue = true;
-			ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()});
+			ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38)});
 		end);
 
 		ColorPicker.Hue.InputChanged:Connect(function()
 			if ColorPicker.SlidingHue then
-				ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()});
+				ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38)});
 			end;
 		end);
 
