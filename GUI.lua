@@ -1,5 +1,4 @@
 -- // My Bad The Code Is Shitty I Keep Taking Breaks For A Long Time.
-
 local Libary = { 
 	Flags = { };
 	Items = { };
@@ -287,12 +286,12 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 
 		ColorPicker.Saturation.MouseButton1Down:Connect(function()
 			ColorPicker.SlidingSaturation = true
-			ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38) })
+			ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()})
 		end)
 
 		ColorPicker.Saturation.InputChanged:Connect(function()
 			if ColorPicker.SlidingSaturation then
-				ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38) })
+				ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()})
 			end
 		end)
 
@@ -315,12 +314,12 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 
 		ColorPicker.Hue.MouseButton1Down:Connect(function()
 			ColorPicker.SlidingHue = true
-			ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38) })
+			ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()})
 		end)
 
 		ColorPicker.Hue.InputChanged:Connect(function()
 			if ColorPicker.SlidingHue then
-				ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation() - Vector2.new(0, 38) })
+				ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()})
 			end
 		end)
 
