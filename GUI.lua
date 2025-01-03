@@ -228,20 +228,20 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 		ColorPicker.View.BackgroundColor3 = Color3.fromRGB(255 ,255 ,255);
 		ColorPicker.View.BorderSizePixel = 0;
 
-		local Hue, Sat, Val
+		local Hue, Sat, Val;
 
 		function ColorPicker:Set(color, transparency, ignore)
-			transparency = 0
+			transparency = 0;
 
 			if type(color) == "table" then
-				transparency = color.a
-				color = color.c
-			end
+				transparency = color.a;
+				color = color.c;
+			end;
 
-			Hue, Sat, Val = color:ToHSV()
+			Hue, Sat, Val = color:ToHSV();
 
-			ColorPicker.Color = color
-			ColorPicker.Transparency = transparency
+			ColorPicker.Color = color;
+			ColorPicker.Transparency = transparency;
 
 			if not ignore then
 				ColorPicker.SaturationSelect.Position = UDim2.new(
@@ -249,87 +249,92 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 					Sat < 1 and -1 or -3,
 					math.clamp(1 - Val, 0, 1),
 					1 - Val < 1 and -1 or -3
-				)               
+				);          
 
-				ColorPicker.HuePosition = Hue
+				ColorPicker.HuePosition = Hue;
 
 				ColorPicker.HueSelect.Position = UDim2.new(
 					0,
 					0,
 					math.clamp(1 - Hue, 0, 1),
 					1 - Hue < 1 and -1 or -2
-				)    
+				);
 
-				Libary.Flags[ColorPicker.Flag] = color
-			end
+				Libary.Flags[ColorPicker.Flag] = color;
+			end;
 
 			if ColorPicker.Flag then
-				Libary.Flags[ColorPicker.Flag] = color
-			end
+				Libary.Flags[ColorPicker.Flag] = color;
+			end;
 
-			ColorPicker.Saturation.BackgroundColor3 = Color3.fromHSV(ColorPicker.HuePosition, 1, 1)
-			ColorPicker.View.BackgroundColor3 = color
+			if ColorPicker.CallBack then
+				pcall(ColorPicker.CallBack, color);
+			end;
+
+			ColorPicker.Saturation.BackgroundColor3 = Color3.fromHSV(ColorPicker.HuePosition, 1, 1);
+			ColorPicker.View.BackgroundColor3 = color;
 		end
 
-		function ColorPicker:Add(Flag)
-			ColorPicker.Flag = Flag
-			ColorPicker:Set(Libary.Flags[Flag], 0, false)
-		end
+		function ColorPicker:Add(Flag, CallBack)
+			ColorPicker.Flag = Flag;
+			ColorPicker.CallBack = CallBack;
+			ColorPicker:Set(Libary.Flags[Flag], 0, false);
+		end;
 
 		function ColorPicker.SlideSaturation(input)
-			local SizeX = math.clamp((input.Position.X - ColorPicker.Saturation.AbsolutePosition.X) / ColorPicker.Saturation.AbsoluteSize.X, 0, 1)
-			local SizeY = 1 - math.clamp((input.Position.Y - ColorPicker.Saturation.AbsolutePosition.Y) / ColorPicker.Saturation.AbsoluteSize.Y, 0, 1)
+			local SizeX = math.clamp((input.Position.X - ColorPicker.Saturation.AbsolutePosition.X) / ColorPicker.Saturation.AbsoluteSize.X, 0, 1);
+			local SizeY = 1 - math.clamp((input.Position.Y - ColorPicker.Saturation.AbsolutePosition.Y) / ColorPicker.Saturation.AbsoluteSize.Y, 0, 1);
 
-			ColorPicker.SaturationSelect.Position = UDim2.new(SizeX, SizeX < 1 and -1 or -3, 1 - SizeY, 1 - SizeY < 1 and -1 or -3)
-			ColorPicker:Set(Color3.fromHSV(ColorPicker.HuePosition, SizeX, SizeY), 0, true)
-		end
+			ColorPicker.SaturationSelect.Position = UDim2.new(SizeX, SizeX < 1 and -1 or -3, 1 - SizeY, 1 - SizeY < 1 and -1 or -3);
+			ColorPicker:Set(Color3.fromHSV(ColorPicker.HuePosition, SizeX, SizeY), 0, true);
+		end;
 
 		ColorPicker.Saturation.MouseButton1Down:Connect(function()
-			ColorPicker.SlidingSaturation = true
-			ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()})
-		end)
+			ColorPicker.SlidingSaturation = true;
+			ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()});
+		end);
 
 		ColorPicker.Saturation.InputChanged:Connect(function()
 			if ColorPicker.SlidingSaturation then
-				ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()})
-			end
-		end)
+				ColorPicker.SlideSaturation({ Position = UserInputService:GetMouseLocation()});
+			end;
+		end);
 
 		ColorPicker.Saturation.MouseButton1Up:Connect(function()
-			ColorPicker.SlidingSaturation = false
-		end)
+			ColorPicker.SlidingSaturation = false;
+		end);
 
 		ColorPicker.Saturation.MouseLeave:Connect(function()
-			ColorPicker.SlidingSaturation = false
-		end)
+			ColorPicker.SlidingSaturation = false;
+		end);
 
 		function ColorPicker.SlideHue(input)
 			local SizeY = 1 - math.clamp((input.Position.Y - ColorPicker.Hue.AbsolutePosition.Y) / ColorPicker.Hue.AbsoluteSize.Y, 0, 1)
 
-			ColorPicker.HueSelect.Position = UDim2.new(0, 0, 1 - SizeY, 1 - SizeY < 1 and -1 or -2)
-			ColorPicker.HuePosition = SizeY
+			ColorPicker.HueSelect.Position = UDim2.new(0, 0, 1 - SizeY, 1 - SizeY < 1 and -1 or -2);
+			ColorPicker.HuePosition = SizeY;
 
-			ColorPicker:Set(Color3.fromHSV(SizeY, Sat, Val), 0, true)
-		end
+			ColorPicker:Set(Color3.fromHSV(SizeY, Sat, Val), 0, true);
+		end;
 
 		ColorPicker.Hue.MouseButton1Down:Connect(function()
-			ColorPicker.SlidingHue = true
-			ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()})
-		end)
+			ColorPicker.SlidingHue = true;
+			ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()});
+		end);
 
 		ColorPicker.Hue.InputChanged:Connect(function()
 			if ColorPicker.SlidingHue then
-				ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()})
-			end
-		end)
+				ColorPicker.SlideHue({ Position = UserInputService:GetMouseLocation()});
+			end;
+		end);
 
 		ColorPicker.Hue.MouseButton1Up:Connect(function()
-			ColorPicker.SlidingHue = false
-		end)
+			ColorPicker.SlidingHue = false;
+		end);
 
 		ColorPicker.Hue.MouseLeave:Connect(function()
-			ColorPicker.SlidingHue = false
-		end)
+			ColorPicker.SlidingHue = false;
+		end);
 
 		return ColorPicker;
 	end;
@@ -802,7 +807,7 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 					ColorPicker.Main.Size = UDim2.fromOffset(17, 17);
 					ColorPicker.Main.Image = "rbxassetid://11430234918";
 					ColorPicker.Main.MouseButton1Click:Connect(function()
-						ColorPickerM:Add(ColorPicker.Flag)
+						ColorPickerM:Add(ColorPicker.Flag, CallBack)
 						Window.ColorPickerSelected = ColorPicker.Flag
 					end);
 
@@ -1385,7 +1390,7 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 							ColorPicker.Main.Size = UDim2.fromOffset(17, 17);
 							ColorPicker.Main.Image = "rbxassetid://11430234918";
 							ColorPicker.Main.MouseButton1Click:Connect(function()
-								ColorPickerM:Add(ColorPicker.Flag)
+								ColorPickerM:Add(ColorPicker.Flag, CallBack)
 								Window.ColorPickerSelected = ColorPicker.Flag
 							end);
 
@@ -1895,7 +1900,7 @@ function Libary:CreateWindow(Name, Toggle, keybind)
 							ColorPicker.Main.Size = UDim2.fromOffset(17, 17);
 							ColorPicker.Main.Image = "rbxassetid://11430234918";
 							ColorPicker.Main.MouseButton1Click:Connect(function()
-								ColorPickerM:Add(ColorPicker.Flag)
+								ColorPickerM:Add(ColorPicker.Flag, Flag)
 								Window.ColorPickerSelected = ColorPicker.Flag
 							end);
 
