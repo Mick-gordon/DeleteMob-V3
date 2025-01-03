@@ -14,7 +14,7 @@ local PhantomFocresFllag = [[
 
 if game.GameId == 113491250 and not getgenv().DeleteMob.Executed then
 
-    if not setstack or not getstack or not getupvalues or not getgc then
+    if not setstack or not getstack or not getupvalue or not getgc then
         LocalPlayer:Kick("Executor Is Not Suppoted.");
     end;
 
